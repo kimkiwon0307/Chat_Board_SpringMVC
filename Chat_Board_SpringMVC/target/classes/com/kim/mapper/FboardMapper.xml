@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.mapper.FboardMapper">
+	
+
+	<select id="getList" resultType="com.kim.domain.FboardVO">
+	<![CDATA[
+		select * from fboard where f_no > 0 
+		]]>
+	</select>
+	
+	<insert id="insert">
+		insert into fboard (f_no,f_title,f_content,f_writer) 
+		values (seq_fboard.nextval, #{f_title}, #{f_content}, #{f_writer})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="f_no" order="BEFORE" resultType="int">
+			select seq_fboard.nextval from dual
+		</selectKey>
+		insert into fboard(f_no, f_title, f_content, f_writer) values(#{f_no}, #{f_title}, #{f_content}, #{f_writer})
+	</insert>
+	
+	<select id="read" resultType="com.kim.domain.FboardVO">
+		select * from fboard where f_no = #{f_no}
+	</select>
+	
+	<delete id="delete">
+		delete fboard where f_no = #{f_no}
+	</delete>
+	
+	<update id="update">
+		update  fboard
+		set f_title = #{f_title},
+		f_content  =#{f_content},
+		f_writer = #{f_writer},
+		f_udate = sysdate
+		where f_no = #{f_no}
+	</update>
+	
+	
+	<select id="getListWithPaging" resultType="com.kim.domain.FboardVO">
+		<![CDATA[
+			select f_no, f_title, f_content, f_writer, f_date, f_udate
+			from 
+				(
+				 select /*+INDEX_DESC(fboard pk_fboard) */
+				 	rownum rn, f_no, f_title, f_content, f_writer, f_date, f_udate
+				 from
+				 	fboard
+				 where 
+			]]>
+			<include refid="criteria"></include>
+			<![CDATA[ 
+				 rownum <= #{pageNum} * #{amount}
+				 )
+			where rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select> 
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from fboard where 
+			<include refid="criteria"></include>
+		 f_no > 0
+	</select>
+	
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+				<foreach item='type' collection="typeArr">
+					<trim prefix="OR">
+						<choose>
+							<when test="type == 'T'.toString()">
+								lower(f_title) like lower('%' || #{keyword} || '%')
+							</when>
+								<when test="type == 'C'.toString()">
+								lower(f_content) like lower('%' || #{keyword} || '%')
+							</when>
+								<when test="type == 'W'.toString()">
+								lower(f_writer) like lower('%' || #{keyword} || '%')
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			</trim>	
+	</sql>
+	
+	</mapper>

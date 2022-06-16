@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.mapper.ReplyMapper">
+	
+	<insert id="insert">
+		insert into t_reply(rno, f_no, reply, replyer) values (seq_rply.nextval, #{f_no}, #{reply}, #{replyer})
+	</insert>
+	
+	<select id="read" resultType="com.kim.domain.ReplyVO">
+		select * from t_reply where rno = #{rno}
+	</select>
+	
+	<update id="update">
+		update t_reply set reply = #{reply}, updatedate = sysdate where rno = #{rno} 
+	</update>
+	
+	<delete id="delete">
+		delete from t_reply where rno = #{rno}
+	</delete>
+
+	<select id="list" resultType="com.kim.domain.ReplyVO">
+		select * from t_reply where f_no = #{f_no} order by rno asc
+	</select>
+	
+</mapper>

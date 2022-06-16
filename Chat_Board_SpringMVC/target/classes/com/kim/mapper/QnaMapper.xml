@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kim.mapper.QnaMapper">
+	
+
+	<select id="getList" resultType="com.kim.domain.QnaVO">
+<!-- 	<![CDATA[
+		select * from qna where q_no > 0 
+		]]> -->
+		
+		
+	</select>
+	
+	<insert id="insert">
+		insert into qna (q_no, q_root, q_title, q_content, q_writer) 
+		values (seq_qna.nextval, seq_qna.currval, #{q_title}, #{q_content}, #{q_writer})
+	</insert>
+	
+	
+	<select id="read" resultType="com.kim.domain.QnaVO">
+		select * from qna where q_no = #{q_no}
+	</select>
+	
+	
+	<delete id="delete">
+		delete qna where q_no = #{q_no}
+	</delete>
+	
+	<update id="update">
+		update  qna
+		set q_title = #{q_title},
+		q_content  =#{q_content},
+		q_writer = #{q_writer},
+		q_udate = sysdate
+		where q_no = #{q_no}
+	</update>
+	
+	<update id="update_count">
+		update qna set q_count = q_count + 1 where q_no = #{q_no}
+	</update>
+	
+	
+	<select id="getListWithPaging" resultType="com.kim.domain.QnaVO">
+		<![CDATA[
+			select *
+			from 
+				(
+				 select /*+INDEX_DESC(qna pk_qna) */
+				 	rownum rn, q_no, q_title, q_content, q_writer, q_date, q_udate, q_count, q_root, q_step, q_indent
+				 from
+				 	 (select * from qna order by q_root desc, q_step asc)
+				 	qna
+				 where rownum <= #{pageNum} * #{amount} 
+		
+				 )
+			where rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select> 
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from qna where q_no > 0
+	</select>
+
+	<insert id="reply_insert">
+				insert into qna (q_no, q_root, q_step, q_indent, q_title, q_content, q_writer)
+				values(seq_qna.nextval, #{q_root}, #{q_step}+1, #{q_indent}+1, #{q_title}, #{q_content}, #{q_writer} )
+	
+	</insert>
+
+
+	
+</mapper>
