@@ -20,7 +20,7 @@ public class FboardServiceImpl implements FboardService {
 	//게시판 등록
 	@Override
 	public void register(FboardVO board) {
-		mapper.insertSelectKey(board);
+		mapper.insert(board);
 	}
 	//게시판 조회
 	@Override

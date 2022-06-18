@@ -57,13 +57,21 @@
 
       <div class="col-md-3 text-end">
         <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <button type="button" class="btn btn-primary" id="signUp_btn">Sign-up</button>
       </div>
     </header>
     <div style="height: 200px;">
     			
     </div>
   </div>
+	<script>
+	 	$(document).ready(function(){
+	 			$("#signUp_btn").on("click",function(){
+	 				self.location = "/member/signUp";
+	 			})
+	 	})
+	</script>
+
 
 </body>
 </html>

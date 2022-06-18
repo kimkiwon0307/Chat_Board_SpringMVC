@@ -44,6 +44,7 @@ public class BoardController {
 	@PostMapping("/register")
 	public String register(FboardVO board, RedirectAttributes rttr) {
 		service.register(board);
+		System.out.println("Ggg" + board.toString());
 		rttr.addFlashAttribute("result", board.getF_no());
 		return "redirect:/fboard/list";
 	}
