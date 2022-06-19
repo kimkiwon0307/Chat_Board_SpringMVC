@@ -58,8 +58,11 @@ public class QnaController {
 		// 요청 들어온 url을 구한다.
 		StringBuffer url = request.getRequestURL();
 		
+	//	System.out.println("URL : "+ url);
+	//	System.out.println(url.substring(26,29));
+		
 		// url에 "get"이라는 문자열이 있으면 조회수를 증가한다. 이는 수정버튼을 눌렀을때 올라가는 조회수를 막기 위함이다.
-		if(url.substring(37, 40).equalsIgnoreCase("get")) {
+		if(url.substring(26, 29).equalsIgnoreCase("get")) {
 			service.update_count(q_no);
 		}
 		
