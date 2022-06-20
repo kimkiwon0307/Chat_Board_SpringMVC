@@ -25,9 +25,16 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("Serivce2"+ member.toString());
 	}
 
+	// 닉네임 중복체크
 	@Override
 	public int nickCheck(String m_nick) {
 		return mapper.nickCheck(m_nick);
+	}
+
+	// 로그인 
+	@Override
+	public MemberVO login(MemberVO member) {
+		return mapper.Login(member);
 	}
 
 }

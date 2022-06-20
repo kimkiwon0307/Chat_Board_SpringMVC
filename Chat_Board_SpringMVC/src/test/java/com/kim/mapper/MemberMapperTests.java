@@ -9,6 +9,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kim.domain.MemberVO;
 
 import lombok.Setter;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -40,6 +43,24 @@ public class MemberMapperTests {
 		
 		mapper.nickCheck(nick1);
 		mapper.nickCheck(nick2);
+		
+	}
+	
+	@Test
+	public void login() {
+		
+		MemberVO member = new MemberVO();
+		
+		String nick ="라이거";
+		String pw = "111";
+	//	String pw = "121"; 비밀번호 틀린경우
+		
+		member.setM_nick(nick);
+		member.setM_pw(pw);
+		
+		mapper.Login(member);
+		
+		System.out.println(mapper.Login(member));
 		
 	}
 }

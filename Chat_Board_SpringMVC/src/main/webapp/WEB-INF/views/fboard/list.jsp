@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert f_title here</title>
+<style>
+</style>
 </head>
 <body>
 

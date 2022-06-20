@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -54,11 +55,26 @@
         <li><a href="/fboard/list" class="nav-link px-2 link-dark">자유게시판</a></li>
         <li><a href="/qna/list" class="nav-link px-2 link-dark">Q&A</a></li>
       </ul>
-
+	
+	<!-- 로그인 하지 않은 상태 -->
+	<c:if test="${member == null}">
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary" id="signUp_btn">Sign-up</button>
+        <button type="button" class="btn btn-outline-primary me-2" id="login_btn">로그인</button>
+        <button type="button" class="btn btn-primary" id="signUp_btn">회원가입</button>
       </div>
+	</c:if>
+	
+	<!-- 로그인 상태 -->
+	<c:if test="${member !=null }">
+		 <div class="col-md-3 text-end">
+		 	<strong>${member.m_nick}</strong>님 반갑습니다. 
+		 <div>
+			<button type="button" class="btn btn-outline-primary me-2" id="logOut_btn">로그아웃</button>
+    	    <button type="button" class="btn btn-primary" id="signUp_btn">회원정보</button>
+		 </div>
+		 </div> 
+	</c:if>
+	
     </header>
     <div style="height: 200px;">
     			
@@ -66,9 +82,25 @@
   </div>
 	<script>
 	 	$(document).ready(function(){
-	 			$("#signUp_btn").on("click",function(){
+	 		
+	 		
+	 		$("#login_btn").on("click",function(){
+	 			self.location = "/member/login";
+	 		})
+	 		
+	 		
+	 		$("#signUp_btn").on("click",function(){
 	 				self.location = "/member/signUp";
 	 			})
+	 			
+	 		$("#logOut_btn").on("click",function(){
+	 			
+	 			self.location = "/member/logout";
+	 			
+	 		})
+	 			
+	 			
+	 			
 	 	})
 	</script>
 

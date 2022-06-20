@@ -3,6 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+html,body{
+background-image: url('https://photo.coolenjoy.net/data/editor/2101/a4eeed5b64ae71f0653a6e754d1d5886c4c7d8a1.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -55,27 +64,30 @@
 	width:319px;
 }
 
+.card bg-light{
+	margin-top : 300px;
+}
+
+
 </style>
 </head>
 <body>
 	<div class="container">
 		<hr>
-
-		<div class="card bg-light">
+		
+		<div class="card bg-light" style="margin-top : 250px; border-radius:200px; background-color:#F8F9B5!important">
 			<article class="card-body mx-auto" style="max-width: 400px;">
-				<h4 class="card-title mt-3 text-center">Create Account</h4>
-				<p class="text-center">Get started with your free account</p>
-				<p>
-					<a href="" class="btn btn-block btn-twitter"> <i
-						class="fab fa-twitter"></i>   Login via Twitter
-					</a> <a href="" class="btn btn-block btn-facebook"> <i
-						class="fab fa-facebook-f"></i>   Login via facebook
-					</a>
+				<h4 class="card-title mt-3 text-center">회원 가입</h4>
+			<!-- 
+				<p id="#kakao_logo" style=margin-left:5px;>
+						<a href="#" id="kakao_login"><img src="/resources/image/kakao_login_wide.png" alt="카카오로고"/></a>
 				</p>
+			
 				<p class="divider-text">
 					<span class="bg-light">OR</span>
 				</p>
-				<form action="/member/signUp" method="POST">
+				 -->
+			<form action="/member/signUp" method="POST">
 				<div class="form-group input-group" style="width:318px;"> 
 						<div class="input-group-prepend">
 							<span class="input-group-text"> 
@@ -119,7 +131,7 @@
 					</div>
 					<!-- form-group// -->
 					<p class="text-center">
-						Have an account? <a href="">Log In</a>
+						아이디를 보유 중인가요? <a href="/member/login">Log In</a>
 					</p>
 				</form>
 			</article>

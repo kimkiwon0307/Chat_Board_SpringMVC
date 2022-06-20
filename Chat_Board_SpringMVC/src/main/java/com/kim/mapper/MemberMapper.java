@@ -10,4 +10,8 @@ public interface MemberMapper {
 	// 닉네임 중복검사
 	public int nickCheck(String m_nick);
 	
+	// 로그인
+	public MemberVO Login(MemberVO member);
+
+	
 }
