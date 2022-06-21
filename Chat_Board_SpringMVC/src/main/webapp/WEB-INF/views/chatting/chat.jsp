@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <meta charset="UTF-8">
 	<title>Chating</title>
 	<style>
@@ -45,12 +47,13 @@
 
 <script type="text/javascript">
 	var ws;
-
+	
 	function wsOpen(){
-		ws = new WebSocket("ws://" + location.host + "/chating");
+		var r_no = $("#r_no").val();
+		ws = new WebSocket("ws://" + location.host + "/chating/" + r_no);
 		wsEvt();
 	}
-		
+		 
 	function wsEvt() {
 		ws.onopen = function(data){
 			//소켓이 열리면 초기화 세팅하기
@@ -95,11 +98,13 @@
 		<div id="chating" class="chating">
 		</div>
 		
+		<input type="hidden" value="<c:out value='${chatRoomMap.r_no}'/>" id="r_no"/>
+		
 		<div id="yourName">
 			<table class="inputTable">
 				<tr>
 					<th>사용자명</th>
-					<th><input type="text" name="userName" id="userName"></th>
+					<th><input type="text" name="userName" id="userName" value="${member.m_nick}"></th>
 					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
 				</tr>
 			</table>

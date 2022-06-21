@@ -5,19 +5,18 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import lombok.extern.log4j.Log4j2;
-
 
 public class ChattingHandler extends TextWebSocketHandler{
 			
-		private Set<WebSocketSession> sessionList 
-		= Collections.synchronizedSet(new HashSet<WebSocketSession>());
-	
+		private Set<WebSocketSession> sessionList = Collections.synchronizedSet(new HashSet<WebSocketSession>());
 		
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) {
@@ -29,12 +28,15 @@ public class ChattingHandler extends TextWebSocketHandler{
 		@Override
 		public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException{
 			
-			String msg = message.getPayload();
 			
+			String msg = message.getPayload();
 			
 			synchronized(sessionList) {
 				for(WebSocketSession s : sessionList) {
-					s.sendMessage(new TextMessage(msg));
+					if(session.getId() == s.getId() || s.getUri().equals(session.getUri())) {
+						System.out.println(session.getUri() == s.getUri());
+				    	 s.sendMessage(new TextMessage(msg));
+					}
 				}
 			}
 		}
@@ -46,5 +48,5 @@ public class ChattingHandler extends TextWebSocketHandler{
 			System.out.println("웹소켓 종료" + session.getId());
 		}
 		
-		
+
 }

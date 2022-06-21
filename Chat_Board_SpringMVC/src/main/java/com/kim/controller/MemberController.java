@@ -62,7 +62,6 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(HttpServletResponse response, HttpServletRequest request, MemberVO member, RedirectAttributes rttr) {
 		
-		
 		HttpSession session = request.getSession();
 		
 		if(service.login(member) == null) {
