@@ -43,9 +43,22 @@ public class ChatController {
 	@ResponseBody
 	public void create(HttpServletRequest request,ChatRoomVO room) {
 		
+		System.out.println(room.getR_no());
+		
 		chatRoomMap.put(room.getR_no(), room);
 		
 		chatRoomList.add(room);
+		
+	}
+	
+	@PostMapping("/delete")
+	@ResponseBody
+	public void delete(HttpServletRequest request,ChatRoomVO room) {
+		
+		System.out.println(room.toString());
+		
+		chatRoomMap.remove(room.getR_no());
+		
 	}
 	
 }

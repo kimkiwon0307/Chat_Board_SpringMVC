@@ -17,6 +17,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class ChattingHandler extends TextWebSocketHandler{
 			
 		private Set<WebSocketSession> sessionList = Collections.synchronizedSet(new HashSet<WebSocketSession>());
+		 
+		int sum = 1;
 		
 		@Override
 		public void afterConnectionEstablished(WebSocketSession session) {
@@ -30,14 +32,18 @@ public class ChattingHandler extends TextWebSocketHandler{
 			
 			
 			String msg = message.getPayload();
-			
+			System.out.println(msg);
 			synchronized(sessionList) {
 				for(WebSocketSession s : sessionList) {
-					if(session.getId() == s.getId() || s.getUri().equals(session.getUri())) {
+					if(!s.equals(session) && s.getUri().equals(session.getUri())) {
 						System.out.println(session.getUri() == s.getUri());
-				    	 s.sendMessage(new TextMessage(msg));
+				    	
+						sum +=1;
+						System.out.println("이값은"+sum);
+						s.sendMessage(new TextMessage(msg));
 					}
 				}
+				sum = 1;
 			}
 		}
 		

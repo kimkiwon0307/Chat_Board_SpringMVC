@@ -23,11 +23,11 @@
 						</tr>
 					</thead>
 					<tbody id="ddd">
-						<c:forEach items="${chatRoomList}" var="chatRoomList" varStatus="status">
+						<c:forEach items="${chatRoomMap}" var="chatRoomMap" varStatus="status">
 							<tr>
-								<td><c:out value="${chatRoomList.r_writer}"/></td>
-								<td><c:out value="${chatRoomList.r_title}"/></td>
-								<td><button class="chat_btn" id="go_chatting" data-room="${chatRoomList.r_no}">입장</button></td> 
+								<td>${chatRoomMap.value.r_writer}</td>
+								<td>${chatRoomMap.value.r_title}</td>
+							 	<td><button class="chat_btn" id="go_chatting" data-room="${chatRoomMap.value.r_no}">입장</button></td> 
 							</tr>
 						</c:forEach> 
 					</tbody>
