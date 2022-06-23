@@ -5,12 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%@include file="../includes/header.jsp"%>
+
+<script src="/resources/fboard/summernote/summernote-lite.js"></script>
+<script src="/resources/fboard/summernote/lang/summernote-ko-KR.js"></script>
+ 
+<link rel="stylesheet" href="/resources/fboard/summernote/summernote-lite.css">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-	<%@include file="../includes/header.jsp"%>
 
 <body>
 	<header>
@@ -49,7 +55,7 @@
 			
 				<div class="input-group">
 					<span class="input-group-text">내 용</span>
-  					<textarea class="form-control" aria-label="With textarea" name="f_content" required>${board.f_content}</textarea>
+  					<textarea class="form-control" id="summernote" aria-label="With textarea" name="f_content" required>${board.f_content}</textarea>
 				</div>
 
 
@@ -95,6 +101,52 @@
 					$("#form_modify").attr("action","/fboard/remove");
 					$(this).unbind('click').click();
 				});
+				
+				$("#summernote").summernote({
+				  	 
+					width:1200, 
+					height:300,
+					minHeight: null,
+					maxHeight: null,
+					focus: true,
+					lang: "ko-KR",
+					placeholder: '최대 2048자리까지 가능',
+					callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+						onImageUpload : function(files) {
+							uploadSummernoteImageFile(files[0],this);
+						},
+						onPaste: function (e) {
+							var clipboardData = e.originalEvent.clipboardData;
+							if (clipboardData && clipboardData.items && clipboardData.items.length) {
+								var item = clipboardData.items[0];
+								if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+									e.preventDefault();
+								}
+							}
+						}
+					}
+				});
+				 
+				 
+				function uploadSummernoteImageFile(file, editor) {
+					data = new FormData();
+					console.log(data);
+					data.append("file", file);
+					$.ajax({
+						data : data,
+						type : "POST",
+						url : "/fboard/uploadSummernoteImageFile",
+						contentType : false,
+						processData : false,
+						success : function(data) {
+			            	//항상 업로드된 파일의 url이 있어야 한다.
+							$(editor).summernote('insertImage', data.url);
+			            	alert("tjdrhd")
+						}
+					});
+				} 
+				
+				
 			})	
 	</script>
 </body>

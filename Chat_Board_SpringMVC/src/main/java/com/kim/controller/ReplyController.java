@@ -1,5 +1,7 @@
 package com.kim.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -29,12 +31,14 @@ public class ReplyController {
 	@ResponseBody
 	@PostMapping(value="/new")
 	public void create(@RequestBody ReplyVO reply){
+		
 		service.register(reply);
 	}
 	
 	// 댓글 목록가져오기
 	@GetMapping(value= "/{f_no}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE } )
 	public List<ReplyVO> list(@PathVariable("f_no")Long f_no){
+		
 		return service.getList(f_no);
 	}
 	
@@ -45,6 +49,29 @@ public class ReplyController {
 
 	}
 	
+	@GetMapping(value="/replyDelete")
+	public String replyDelete(Long rno) {
+	   
+		int result = service.remove(rno);
+		
+	    String message=null;
+
+	    if(result==1) {
+	        message = "success";
+	    }else {
+	        message ="fail";
+	    }	
+	    return message;
+	}
+	
+	@PostMapping(value="/replyUpdate")
+	public void replyUpdate(ReplyVO reply) {
+	
+		System.out.println(reply.toString());
+		
+		service.modify(reply);
+	
+	}
 	
 	
 }
