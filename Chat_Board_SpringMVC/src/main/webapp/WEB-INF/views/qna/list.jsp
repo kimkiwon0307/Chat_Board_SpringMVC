@@ -7,6 +7,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert f_title here</title>
+<style>
+.go_get{
+	text-decoration : none;
+	color:black;
+}
+.go_get:hover{
+	text-decoration : none;
+	color:red;
+}
+thead{
+	background-color:antiquewhite;
+}
+
+</style>
 </head>
 <body>
 

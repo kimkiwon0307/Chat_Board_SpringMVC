@@ -68,7 +68,14 @@
 #king_img{
 	width:50px;
 }
-			
+#chatting{
+	width: 500px;
+	height : auto;
+}
+#out_th{
+	position:absolute; 
+	margin-left:665px
+}	
 	</style>
 </head>
 
@@ -95,10 +102,15 @@
 		<div id="yourMsg">
 			<table class="inputTable">
 				<tr>
-					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-					<th><input type="hidden" id="nick" value="${member.m_nick}"/>
-					<th><button class="btn btn-warning" onclick="send()" id="sendBtn">작성</button></th>
-					<th><button onclick="out()" id="room_out">나가기</button></th>
+						<th><input type="hidden" id="nick" value="${member.m_nick}"/>
+						<th>
+							<div class="input-group mb-3">
+							  <input type="text" id="chatting" class="form-control" placeholder="보내실 메시지를 입력하세요." aria-label="Recipient's username" aria-describedby="button-addon2" >
+							  <button class="btn btn-outline-success" type="button"  onclick="send()" id="sendBtn">작성</button>
+							</div>
+						</th>
+						
+						<th id="out_th"><button class="btn btn-outline-danger" onclick="out()" id="room_out">나가기</button></th>
 				</tr> 
 				
 			</table>
@@ -113,17 +125,23 @@
 		var r_no = $("#r_no").val();
 		ws = new WebSocket("ws://" + location.host + "/chating/" + r_no);
 		
+		$("#yourName").hide();
+		$("#yourMsg").show();
+		
 		wsEvt();
+	
 	}
 		 
 	function wsEvt() {
 	
+		//소켓이 열리면 초기화 세팅하기
 		ws.onopen = function(data){
-			//소켓이 열리면 초기화 세팅하기
 		/* 	chatWindow = document.getElementById("chating"); */
 			chating = $("#chating");
+			var data = "님이 접속했습니다."
+			send(data);
 		}
-		  
+		   
 		ws.onmessage = function(data) {
 			var msg = data.data.split("|");
 			var sender = msg[0];
@@ -137,6 +155,8 @@
 				chating.append("<div id='sender'><span id='sender_span'><img src='/resources/image/man.png' alt='사람' id='king_img'/>"+ sender+ "</span> " +"<span id='content_sty'>"+ content +"</span></div>");
 			}
 	   }
+		
+		
 		document.addEventListener("keypress", function(e){
 			if(e.keyCode == 13){ //enter press
 				send();
@@ -147,27 +167,34 @@
 
 	function chatName(){
 			wsOpen();
-			$("#yourName").hide();
-			$("#yourMsg").show();
+			
 	}
 
-	function send() { 
-		
+	function send(data) { 
 		var uN = $("#nick").val();
 		var msg = $("#chatting").val();
 		
-		chating.append( "<div class='myMsg'><span>"+ msg +"</span></div>");
-		/* chatWindow.scrollTop = chatWindow.scrollHeight; */
-		chating.scrollTop($(document).height());
+		if(!msg && !data){
+			alert("메시지를 입력해주세요");
+			return;
+		}
 		
-		ws.send(uN +"|"+ msg);
+		if(data){
+			chating.append( "<div class='myMsg'><span>"+ uN + data +"</span></div>");
+			ws.send(uN +"|"+ data);
+		}else {
+			chating.append( "<div class='myMsg'><span>"+ msg +"</span></div>");
+			ws.send(uN +"|"+ msg);
+		}
+		/* chatWindow.scrollTop = chatWindow.scrollHeight; */
+			chating.scrollTop($(document).height());
 		
 		$('#chatting').val("");
 	}
-	
 
 	function out(){
-		
+	
+	
 		var	room_writer = $("#r_writer").val();
 		var	room_rno =  $("#r_no").val();
 		var data = {r_writer : room_writer, r_no : room_rno};
@@ -184,6 +211,8 @@
 					data : data,
 					success : function(result) {
 						console.log(result)
+						var data = "님이 퇴장하셨습니다.";
+						send(data);
 						self.location = "/chatting/list";
 					}
 				}); 
@@ -192,6 +221,8 @@
 	 		 }
 		}else{
 			self.location = "/chatting/list";
+			var data = "님이 퇴장하셨습니다.";
+			send(data);
 			}   
 		}
 	</script>

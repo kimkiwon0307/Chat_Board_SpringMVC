@@ -74,7 +74,7 @@ public class MemberController {
 		String checkId = request.getParameter("checkId");
 		
 		if(checkId != null) {
-			CookieManager.makeCookie(response, "loginId", request.getParameter("m_nick"), 7);
+			CookieManager.makeCookie(response, "loginId", request.getParameter("m_nick"), 5000);
 		}
 		else {
 			CookieManager.deleteCookie(response, "loginId");

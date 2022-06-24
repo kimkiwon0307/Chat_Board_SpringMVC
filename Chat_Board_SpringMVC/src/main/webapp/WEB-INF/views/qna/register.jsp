@@ -7,6 +7,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+h1{
+		font-size: 3.5rem;
+	}
+	#h5_1{
+		font-weight: bold;
+		font-size: 1rem;
+		float:right;
+	}
+	
+	h5{
+		font-weight: bold;
+	}
+	.input-group-text{
+		background-color:ivory;
+	}
+	#input_color{
+	background-color:aliceblue;
+	}
+	#bt_group{
+		margin-top:5px;
+	}
+	
+</style>
 </head>
 <body>
 
@@ -35,7 +59,7 @@
 			
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="basic-addon1">작성자</span> 
-					<input type="text" class="form-control" placeholder="작성자" name="q_writer" required>
+					<input type="text" class="form-control"  name="q_writer" value="${member.m_nick}" readonly="readonly">
 				</div>
 			
 			

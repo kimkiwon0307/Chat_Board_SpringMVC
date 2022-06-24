@@ -16,7 +16,6 @@
 <title>Insert f_title here</title>
 <style>
 	strong{
-		color:red;
 		padding-left:10px;
 	}
 	p{
@@ -33,9 +32,40 @@
 		
 		height:100px;
 	}
+	h1{
+		font-size: 3.5rem;
+	}
+	#h5_1{
+		font-weight: bold;
+		font-size: 1rem;
+		float:right;
+	}
+	
 	h5{
 		font-weight: bold;
 	}
+	#summernote{
+		height: auto;
+	
+	}
+		.input-group-text{
+		background-color:ivory;
+		width: 75px;
+	}
+	.btn_group{
+		margin-top:10px; 
+		float: right;
+	}
+	#input_color{
+		background-color:aliceblue; 
+	}
+	#replyer{
+	background-color:#51efa6;
+	}
+	#like_img:hover{
+		color:red;
+	}
+
 </style>
 
 </head>
@@ -52,7 +82,7 @@
 				<h1>조회 </h1>
 			</div>
 			<div class = "subject_h5">
-				<h5>홈 > SpringMVC게시판 > 조회</h5>
+				<h5 id="h5_1">홈 > SpringMVC게시판 > 조회</h5>
 			</div>
 			
 		</div>
@@ -61,13 +91,13 @@
 
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="basic-addon1">제 목</span> 
-					<input type="text" class="form-control" placeholder="제목을 작성하세요." 
+					<input type="text" id="input_color"class="form-control" placeholder="제목을 작성하세요." 
 					  name="f_title" aria-label="Username" aria-describedby="basic-addon1" value="${board.f_title}" readonly="readonly"/>
 				</div>
 			
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="basic-addon1">작성자</span> 
-					<input type="text" class="form-control" placeholder="작성자" name="f_writer" value="${board.f_writer}" readonly="readonly">
+					<input type="text" id="input_color" class="form-control" placeholder="작성자" name="f_writer" value="${board.f_writer}" readonly="readonly">
 				</div>
 			
 			
@@ -76,12 +106,22 @@
   					<textarea  class="form-control" id="summernote"name="f_content" readonly="readonly">${board.f_content}</textarea>
 				</div>
 			
+			<div style=" text-align: center; margin-top:10px;">
+				
+				<img style="width:60px;" id="like_img" src="/resources/image/like.png"/>
+				${board.f_like }
+			</div>
+			
+			
 			<c:if test="${member.m_nick} == ${board.f_writer}">
-				<div class="btn_group" style="margin-top:10px; float: right;">
-					<button type="button" class="btn btn-primary" id="btn_update">수 정</button>
-					<button type="button" class="btn btn-danger" id="btn_list">목 록</button>
+				<div class="btn_group">
+					<button type="button" class="btn btn-outline-primary" id="btn_update">수 정</button>
+					<button type="button" class="btn btn-outline-danger" id="btn_list">목 록</button>
 				</div>
 			</c:if>
+				<div class="btn_group" >
+					<button type="button" class="btn btn-outline-danger" id="btn_list">목 록</button>
+				</div>
 			
 				<form method="get" id="withPagingInfo">
 					<input type="hidden" name='type' value="${cri.type}">
@@ -105,8 +145,8 @@
 							<input type="text"  class="form-control" id="replyer" name="replyer" value="${member.m_nick}" readonly="readonly">
 							<input type="text"  class="form-control" id="reply_text" placeholder="댓글을 작성하세요" name="reply" required="required">
 						
-							<div class="btn_group" style="margin-top:10px; float: right;">
-								<button type="button" class="btn btn-primary" id="reply_register_btn">댓 글</button>
+							<div class="btn_group">
+								<button type="button" class="btn btn-outline-primary" id="reply_register_btn">댓 글</button>
 							</div>
 						</div>
 					</div>
@@ -126,6 +166,10 @@
 </div>
 	<script>
 		$(document).ready(function(){
+			
+			
+			
+			
 			
 			// 목록 버튼 누르면 목록으로 가기
 			$("#btn_list").on("click",function(e){
@@ -166,7 +210,7 @@
 		 	
 		 		for(var i=0 ; i < data.length ; i++){
 					html +="<li style='list-style:none;margin-top: 2px;'>"
-					html +="<div id='"+ data[i].rno + "'style='border: 1px solid black;background-color: antiquewhite;'>";
+					html +="<div id='"+ data[i].rno + "'style='border: 1px solid black;background-color: aliceblue;'>";
 					html +="<div class='header'>";
 					html +="<strong>" + data[i].replyer + "</strong>";
 					html +="<small style='float:right; padding-right:10px;'>" + data[i].replyDate + "</small></div>";
@@ -259,7 +303,7 @@
 		 		var html = "";
 		 		
 					html +="<li style='list-style:none;margin-top: 2px;'>";
-					html +="<div id='"+ rno + "'style='border: 1px solid black;background-color: antiquewhite;'>";
+					html +="<div id='"+ rno + "'style='border: 1px solid black; background-color: aliceblue;'>";
 					html +="<div class='header'>";
 					html +="<strong>" + replyer + "</strong>";
 					html +="</div>";
@@ -274,7 +318,7 @@
 		 	}  
 		 	
 			//저장 버튼을 누르면 작동하는 함수
-		 	function replyUpdateSave(){
+		 function replyUpdateSave(){
 		 
 		 	var reply = $("#update_reply_text").val();
 			var rno = $(this).data('rno'); 
@@ -303,17 +347,35 @@
 		 	
 		 	
 		 	// summernote
-			  
 			$("#summernote").summernote({
 				toolbar:false,
-				width:1200, 
-				height:300,
+				width : 1200,
 				minHeight: null,
 				maxHeight: null,
 				focus: true,
 				lang: "ko-KR",
 			}); 
-			
+			 
+		 	$("#like_img").on("click",function(){
+		 	
+		 		var f_no = $("#withPagingInfo").find("input[name='f_no']").val();
+		 		var data = {"f_no" : f_no};
+		 		
+				$.ajax({
+					
+					method: "post",
+					url : "/fboard/like",
+					data : data,
+					success :function(){
+						alert("좋아요!");
+						location.reload();
+					}
+					
+				})
+			 		
+		 		
+		 		
+		 	})
 		 	
 		 	
 		 	

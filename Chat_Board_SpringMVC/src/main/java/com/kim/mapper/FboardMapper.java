@@ -30,4 +30,10 @@ public interface FboardMapper {
 
 	//게시판 목록 + 페이징
 	public List<FboardVO> getListWithPaging(Criteria cri);
+	
+	// 좋아요기능
+	public void like(int f_no);
+	
+	// 조회수
+	public void count(int f_no);
 }

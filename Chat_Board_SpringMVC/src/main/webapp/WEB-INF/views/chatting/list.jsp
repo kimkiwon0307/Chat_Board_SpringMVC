@@ -7,9 +7,17 @@
 <meta charset="UTF-8">
 <title>채팅</title>
 <%@include file="../includes/header.jsp"%>
-</head>
+<style>
+	#ddd td{
+		padding:90px 0;		
+		border-bottom: 1px solid red;
+	}
+	#modal-name{
+		background-color:ivory;
+	}
+</style>
+</head> 
 <body>
-<h1>채팅리스트</h1>
 <div class="container">
 		<div class="container-fluid">
 	 
@@ -25,9 +33,14 @@
 					<tbody id="ddd">
 						<c:forEach items="${chatRoomMap}" var="chatRoomMap" varStatus="status">
 							<tr>
-								<td>${chatRoomMap.value.r_writer}</td>
-								<td>${chatRoomMap.value.r_title}</td>
-							 	<td><button class="chat_btn" id="go_chatting" data-room="${chatRoomMap.value.r_no}">입장</button></td> 
+									<td>${chatRoomMap.value.r_writer}</td>
+									<td>${chatRoomMap.value.r_title}</td>
+							 	<c:if test="${member != null}">
+								 	<td><button class="btn join btn-outline-success"  data-room="${chatRoomMap.value.r_no}">입장</button></td> 
+							 	</c:if>
+							 	<c:if test="${member == null}">
+								 	<td><button class="btn danger btn-outline-danger"  data-room="${chatRoomMap.value.r_no}">입장 불가</button></td> 
+							 	</c:if>
 							</tr>
 						</c:forEach> 
 					</tbody>
@@ -40,10 +53,13 @@
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
+					 
+					
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">방 만들기</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
+					  
 						<div class="modal-body">
 							<form>
 								<div class="mb-3">
@@ -57,22 +73,25 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" id="room_register">만들기</button>
+							<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-outline-primary" id="room_register">만들기</button>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<button type="button" class="btn btn-primary" 
+		
+		<c:if test="${member != null}">
+			<button type="button" class="btn btn-outline-primary" 
 			data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">방 만들기</button>
+		</c:if>
+		<c:if test="${member == null}">
+			<input type="text" class="form-control" value="로그인 후에 사용할 수 있습니다." readonly="readonly">
+		</c:if>
 		</div>
 	</div>
 	
 	<script>
 		$(document).ready(function(){
-			
-			
 			
 			$("#room_register").on("click",function(){
 				
@@ -80,6 +99,12 @@
 				var r_title = $("#modal-title").val();
 				var r_no = guid();
 				var data = {r_writer : r_writer, r_title : r_title, r_no : r_no};
+				
+				if(!r_title){
+					
+					$("#modal-title").val("제목을 입력해주세요.").focus();
+					return;
+				}
 				
 				$.ajax({
 					type: "post",
@@ -98,17 +123,24 @@
 					  }
 					  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 					}
-
-				
 			})
 			
 			
-		$(".chat_btn").on("click",function(){
+		$(".join").on("click",function(){
 				
 				var r_no = $(this).data('room');
 				
 				self.location = "/chatting/chat?r_no=" + r_no ;
 			})
+			
+		$(".danger").on("click",function(){
+				
+				alert("로그인후 입장이 가능합니다.");
+		})
+		
+			
+			
+			
 			
 		})
 	</script>

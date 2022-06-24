@@ -127,7 +127,7 @@ font-family: 'Numans', sans-serif;
 					</div> -->
 					<!-- form-group// -->
 					<div class="form-group">
-						<button type="submit" id="signUp_btn" class="btn btn-primary btn-block">회원가입</button>
+						<button type="submit" id="signUp_btn" class="btn btn-outline-primary btn-block">회원가입</button>
 					</div>
 					<!-- form-group// -->
 					<p class="text-center">

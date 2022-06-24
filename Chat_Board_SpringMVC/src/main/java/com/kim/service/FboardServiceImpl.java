@@ -57,5 +57,17 @@ public class FboardServiceImpl implements FboardService {
 	public int getTotalCount(Criteria cri) {
 		return mapper.getTotalCount(cri);
 	}
+	
+	//좋아요 기능
+	@Override
+	public void like(int f_no) {
+		mapper.like(f_no);
+	}
+	
+	// 조회수
+	@Override
+	public void count(int f_no) {
+		mapper.count(f_no);
+	}
 
 }

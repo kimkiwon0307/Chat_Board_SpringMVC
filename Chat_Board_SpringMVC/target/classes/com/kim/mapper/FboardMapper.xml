@@ -43,11 +43,11 @@
 	
 	<select id="getListWithPaging" resultType="com.kim.domain.FboardVO">
 		<![CDATA[
-			select f_no, f_title, f_content, f_writer, f_date, f_udate
+			select f_no, f_title, f_content, f_writer, f_date, f_udate, f_like, f_count
 			from 
 				(
 				 select /*+INDEX_DESC(fboard pk_fboard) */
-				 	rownum rn, f_no, f_title, f_content, f_writer, f_date, f_udate
+				 	rownum rn, f_no, f_title, f_content, f_writer, f_date, f_udate, f_like, f_count
 				 from
 				 	fboard
 				 where 
@@ -65,6 +65,17 @@
 			<include refid="criteria"></include>
 		 f_no > 0
 	</select>
+	
+	<update id="like">
+		update fboard set f_like = f_like + 1 where f_no = #{f_no} 
+	</update>
+	
+	
+	<update id="count">
+		update fboard set f_count = f_count + 1 where f_no = #{f_no} 
+	</update>
+	
+	
 	
 	
 	<sql id="criteria">

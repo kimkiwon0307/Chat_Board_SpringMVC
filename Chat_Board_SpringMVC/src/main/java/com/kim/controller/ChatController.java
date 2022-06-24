@@ -1,9 +1,8 @@
 package com.kim.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,7 +22,7 @@ public class ChatController {
 
 	
 	ArrayList<ChatRoomVO> chatRoomList = new ArrayList<ChatRoomVO>();
-	Map<String, ChatRoomVO> chatRoomMap = new HashMap<String, ChatRoomVO>();
+	Map<String, ChatRoomVO> chatRoomMap = new LinkedHashMap<String, ChatRoomVO>(); // LinkedHashMap : 중복을 허용하지 않으며 순서대로 저장
 	
 
 	@GetMapping("/chat")

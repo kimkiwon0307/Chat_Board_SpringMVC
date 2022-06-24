@@ -27,6 +27,12 @@ public class FboardVO {
 	//게시판 수정날짜
 	private Date f_udate;
 	
+	//좋아요
+	private int f_like;
+	
+	//조회
+	private int f_count;
+	
 }
 
 

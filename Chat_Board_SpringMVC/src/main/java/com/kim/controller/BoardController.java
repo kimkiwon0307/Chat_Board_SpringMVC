@@ -40,7 +40,9 @@ public class BoardController {
 	public void list(Model model, Criteria cri) {
 
 		int total = service.getTotalCount(cri);
-
+		
+		System.out.println(service.getList(cri).toString());
+		
 		// model.addAttribute("list",service.getList()); // 목록
 		model.addAttribute("list", service.getList(cri)); // 목록 + 페이징
 		model.addAttribute("pageMaker", new PageDTO(cri, total)); // 페이징 화면처리에 사용할 PageDTO를 model에 저장
@@ -63,8 +65,9 @@ public class BoardController {
 	// 조회하기 + 페이징
 	@GetMapping({ "/get", "/modify" })
 	public void get(@RequestParam("f_no") int f_no, Model model, @ModelAttribute("cri") Criteria cri) {
+		service.count(f_no);
+		System.out.println(service.get(f_no).toString());
 		model.addAttribute("board", service.get(f_no));
-
 	}
 
 	// 수정하기
@@ -86,7 +89,19 @@ public class BoardController {
 		}
 		return "redirect:/fboard/list";
 	}
-
+	
+	
+	// 좋아요 기능
+	@PostMapping("/like")
+	@ResponseBody
+	public void like(int f_no) {
+		
+		service.like(f_no);
+		
+	}
+	
+	
+	// 섬머노트 파일업로드
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {

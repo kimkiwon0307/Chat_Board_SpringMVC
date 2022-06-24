@@ -27,6 +27,12 @@ public interface FboardService {
 	
 	//게시글 총 갯수
 	public int getTotalCount(Criteria cri);
+	
+	// 좋아요
+	public void like(int f_no);
+	
+	// 조회수
+	public void count(int f_no);
 }
 
 

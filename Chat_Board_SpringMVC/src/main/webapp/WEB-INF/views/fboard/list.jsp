@@ -8,6 +8,18 @@
 <meta charset="UTF-8">
 <title>Insert f_title here</title>
 <style>
+.go_get{
+	text-decoration : none;
+	color:black;
+}
+.go_get:hover{
+	text-decoration : none;
+	color:red;
+}
+thead{
+	background-color:antiquewhite;
+}
+
 </style>
 </head>
 <body>
@@ -39,7 +51,7 @@
 				<input type='text' name='keyword' value="${pageMaker.cri.keyword}"/>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-				<button class='btn btn-danger' style="padding:5px;">검색</button>
+				<button class='btn btn-outline-danger' style="padding:5px;">검색</button>
 			</form>
 		</div>
 	</div>
@@ -64,10 +76,10 @@
 								<td><c:out value="${board.f_writer}" /></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"
 										value="${board.f_date}" /></td>
-								<td>0</td>
+								<td><c:out value="${board.f_count}"/></td>
 							</tr>
 						</c:forEach>
-					</tbody>
+					</tbody> 
 				</table>
 
 
@@ -119,10 +131,15 @@
 				</ul>
 			</nav>
 		<!-- /pagination -->
-		
-		
-			<button type="button" class="btn btn-primary" id="btn_register">등록</button>
-			
+
+		<!--  로그인하지 않으면 안보인다. -->
+		<c:if test="${member != null}">
+			<button type="button" class="btn btn-outline-primary" id="btn_register">등록</button>
+		</c:if>
+		<c:if test="${member == null}">
+			<input type="text" class="form-control" value="로그인 후에 사용할 수 있습니다." readonly="readonly">
+		</c:if>
+
 			<form action="/fboard/list" method="get" id="with_paging" >
 				<input type="hidden" name='type' value="${pageMaker.cri.type}">
 				<input type="hidden" name='keyword' value="${pageMaker.cri.keyword}">
@@ -150,7 +167,7 @@
 				console.log(result);
 				if(result === ''){
 					return;
-				}
+				} 
 				if(parseInt(result) > 0 ){
 					$(".modal-body").html("게시글" + ${result} + "번이 등록되었습니다.");
 				}

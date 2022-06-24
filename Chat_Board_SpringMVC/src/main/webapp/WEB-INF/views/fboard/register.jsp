@@ -21,7 +21,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
+<style>
+	h1{
+		font-size: 3.5rem;
+	}
+	#h5_1{
+		font-weight: bold;
+		font-size: 1rem;
+		float:right;
+	}
+	
+	h5{
+		font-weight: bold;
+	}
+	.input-group-text{
+		background-color:ivory;
+	}
+	#input_color{
+	background-color:aliceblue;
+	}
+	#bt_group{
+		margin-top:5px;
+	}
+</style>
 
 
 </head>
@@ -37,7 +59,7 @@
 				<h1>글쓰기 </h1>
 			</div>
 			<div class = "subject_h5">
-				<h5>홈 > SpringMVC게시판 > 글쓰기</h5>
+				<h5 id="h5_1">홈 > SpringMVC게시판 > 글쓰기</h5>
 			</div>
 		</div>
 		
@@ -51,7 +73,7 @@
 			
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="basic-addon1">작성자</span> 
-					<input type="text" class="form-control" placeholder="작성자" name="f_writer" value="${member.m_nick}" readonly="readonly">
+					<input type="text" id="input_color"class="form-control" placeholder="작성자" name="f_writer" value="${member.m_nick}" readonly="readonly">
 				</div>
 			
 			 
@@ -60,9 +82,9 @@
   					<textarea id="summernote"  name="f_content" required></textarea>
 				</div>
  
-				<div class="btn_group">
-					<button type="submit" class="btn btn-primary" id="btn_write">작 성</button>
-					<button type="button" class="btn btn-danger" id="btn_list">목 록</button>
+				<div class="btn_group" id="bt_group">
+					<button type="submit" class="btn btn-outline-primary" id="btn_write">작 성</button>
+					<button type="button" class="btn btn-outline-danger" id="btn_list">목 록</button>
 				</div>
 			</div>
 		</form>
