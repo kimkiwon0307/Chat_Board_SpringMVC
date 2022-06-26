@@ -56,7 +56,7 @@ thead{
 									</c:forEach>
 									답변 : 
 								</c:if>
-								<a class="go_get" href="${qvo.q_no}">	<c:out value="${qvo.q_title}" />
+								<a class="go_get" href="${qvo.q_no}"><c:out value="${qvo.q_title}" />
 								</a>
 								</td>
 								<td><c:out value="${qvo.q_writer}" /></td>
@@ -117,9 +117,15 @@ thead{
 			</nav>
 		<!-- /pagination -->
 		
-		
-			<button type="button" class="btn btn-primary" id="btn_register">등록</button>
-			
+	
+		<!--  로그인하지 않으면 안보인다. -->
+		<c:if test="${member != null}">
+			<button type="button" class="btn btn-outline-primary" id="btn_register">등록</button>
+		</c:if>
+		<c:if test="${member == null}">
+			<input type="text" class="form-control" value="로그인 후에 사용할 수 있습니다." readonly="readonly">
+		</c:if> 
+  
 			<form action="/qna/list" method="get" id="with_paging">
 				<input type="hidden" name='pageNum' value="${pageMaker.cri.pageNum}">
 				<input type="hidden" name='amount' value="${pageMaker.cri.amount}">
@@ -143,7 +149,7 @@ thead{
 				q_no = $(this).attr('href');
 				
 				// 조회 페이지로 이동한다.
-				self.location = "/qna/get?q_no=" + q_no;
+				self.location = "/qna/get?q_no=" +  q_no;
 				
 				// 클릭이벤트 재실행 한다.
 				$(this).unbind('click').click();

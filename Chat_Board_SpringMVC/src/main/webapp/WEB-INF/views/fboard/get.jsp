@@ -36,9 +36,7 @@
 		font-size: 3.5rem;
 	}
 	#h5_1{
-		font-weight: bold;
-		font-size: 1rem;
-		float:right;
+		float:right; margin-top:20px; 
 	}
 	
 	h5{
@@ -57,7 +55,7 @@
 		float: right;
 	}
 	#input_color{
-		background-color:aliceblue; 
+		background-color:ivory;   
 	}
 	#replyer{
 	background-color:#51efa6;

@@ -46,21 +46,19 @@ public class MemberMapperTests {
 		
 	}
 	
-	@Test
-	public void login() {
-		
-		MemberVO member = new MemberVO();
-		
-		String nick ="라이거";
-		String pw = "111";
-	//	String pw = "121"; 비밀번호 틀린경우
-		
-		member.setM_nick(nick);
-		member.setM_pw(pw);
-		
-		mapper.Login(member);
-		
-		System.out.println(mapper.Login(member));
-		
-	}
+	/*
+	 * @Test public void login() {
+	 * 
+	 * MemberVO member = new MemberVO();
+	 * 
+	 * String nick ="라이거"; String pw = "111"; // String pw = "121"; 비밀번호 틀린경우
+	 * 
+	 * member.setM_nick(nick); member.setM_pw(pw);
+	 * 
+	 * mapper.Login(member);
+	 * 
+	 * System.out.println(mapper.Login(member));
+	 * 
+	 * }
+	 */
 }

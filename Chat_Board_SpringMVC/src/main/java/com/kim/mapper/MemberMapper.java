@@ -1,5 +1,10 @@
 package com.kim.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.kim.domain.FboardVO;
 import com.kim.domain.MemberVO;
 
 public interface MemberMapper {
@@ -11,7 +16,9 @@ public interface MemberMapper {
 	public int nickCheck(String m_nick);
 	
 	// 로그인
-	public MemberVO Login(MemberVO member);
+	public MemberVO Login(@Param("m_nick") String m_nick, @Param("m_pw") String m_pw);
 
+	// 아이디 찾기
+	public List<MemberVO> getIdList(String m_mail);
 	
 }

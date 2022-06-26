@@ -35,7 +35,7 @@
 			
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="basic-addon1">작성자</span> 
-					<input type="text" class="form-control" placeholder="작성자" name="q_writer" required>
+					<input type="text" class="form-control" value="${member.m_nick}" placeholder="작성자" name="q_writer" readonly="readonly">
 				</div>
 			
 			

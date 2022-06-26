@@ -21,5 +21,12 @@
 		select * from chat_Member where m_nick = #{m_nick} and m_pw = #{m_pw}
 	</select>
 
-
+	<!-- 아이디 찾기 -->
+	<select id="getIdList" resultType="com.kim.domain.MemberVO">
+		
+		SELECT * FROM CHAT_MEMBER WHERE M_MAIL = #{M_MAIL} 
+		
+	</select>	
+	
+	
 </mapper>

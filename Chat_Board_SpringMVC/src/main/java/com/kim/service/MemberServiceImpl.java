@@ -1,5 +1,7 @@
 package com.kim.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.kim.domain.MemberVO;
@@ -17,12 +19,7 @@ public class MemberServiceImpl implements MemberService{
 	// 회원가입
 	@Override
 	public void SignUp(MemberVO member) {
-		
-		System.out.println("Serivce"+ member.toString());
-		
 		mapper.SignUp(member);
-		
-		System.out.println("Serivce2"+ member.toString());
 	}
 
 	// 닉네임 중복체크
@@ -33,8 +30,14 @@ public class MemberServiceImpl implements MemberService{
 
 	// 로그인 
 	@Override
-	public MemberVO login(MemberVO member) {
-		return mapper.Login(member);
+	public MemberVO login(String m_nick, String m_pw) {
+		return mapper.Login(m_nick, m_pw);
+	}
+
+	//아이디 찾기
+	@Override
+	public List<MemberVO> getIdList(String m_mail) {
+		return mapper.getIdList(m_mail);
 	}
 
 }

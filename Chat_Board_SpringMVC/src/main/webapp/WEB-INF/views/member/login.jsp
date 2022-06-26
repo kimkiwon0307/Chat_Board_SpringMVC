@@ -186,8 +186,10 @@ color: red;
 					아이디를 가지고 계시지 않은가요?<a href="/member/signUp" style="color: yellow;">Sign Up</a>
 				</div>
 				<div class="d-flex justify-content-center">
-					<a href="#" style="color: yellow;">비밀번호를 잊으셨나요?</a>
+					<a href="/member/findId" style="color: yellow;">아이디 찾기 | </a> 
+					<a href="#" style="color: yellow;"> 비밀번호 찾기</a> 
 				</div>
+			
 			</div>
 		</div>
 	</div>

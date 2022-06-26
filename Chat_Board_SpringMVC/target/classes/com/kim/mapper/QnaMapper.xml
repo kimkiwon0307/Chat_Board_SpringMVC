@@ -25,7 +25,7 @@
 	
 	
 	<delete id="delete">
-		delete qna where q_no = #{q_no}
+		delete qna where q_root = #{q_no}
 	</delete>
 	
 	<update id="update">

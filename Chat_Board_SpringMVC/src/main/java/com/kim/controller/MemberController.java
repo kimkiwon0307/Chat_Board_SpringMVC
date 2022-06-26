@@ -1,6 +1,8 @@
 package com.kim.controller;
 
-import java.util.Map;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.kim.domain.MemberVO;
-import com.kim.domain.ReplyVO;
 import com.kim.service.MemberService;
 import com.kim.utils.CookieManager;
 
@@ -55,7 +54,6 @@ public class MemberController {
 	// 로그인
 	@GetMapping("/login")
 	public void login() {
-		
 	}
 	
 	// 로그인 post
@@ -64,12 +62,16 @@ public class MemberController {
 		
 		HttpSession session = request.getSession();
 		
-		if(service.login(member) == null) {
+		String m_nick = member.getM_nick();
+		String m_pw = member.getM_pw();
+		
+		if(service.login(m_nick, m_pw) == null) {
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
 			return "redirect:/member/login";
 		}
-		session.setAttribute("member", member);
+  		
+		session.setAttribute("member", service.login(m_nick, m_pw));
 
 		String checkId = request.getParameter("checkId");
 		
@@ -118,9 +120,50 @@ public class MemberController {
 	
 		HttpSession session = request.getSession();
 		
+		System.out.println(member.toString());
+		
 		session.setAttribute("member", member);
 		
+		
 	}
+	
+	// 아이디 찾기
+	@GetMapping
+	public void findId() {
+		
+	}
+	
+	@SuppressWarnings({ "unchecked", "null" })
+	@PostMapping("/findId")
+	@ResponseBody
+	public void findId(@RequestBody String m_mail, HttpServletResponse response) throws IOException {
+		
+	//	System.out.println("여기는들어와지니" + m_mail.);
+		
+		List<String> list = new ArrayList<String>(); // json으로 변환하기위한 list
+		
+		List<MemberVO> alist = service.getIdList(m_mail); // db에서 꺼내온 MemberVO list
+		
+		
+		for(int i=0; i< alist.size(); i++) {
+			
+			String m_nick = alist.get(i).getM_nick();
+
+				list.add(m_nick);
+		}
+		
+		  Gson gson = new Gson();
+		
+		  String result = gson.toJson(list);
+		  
+		  response.setCharacterEncoding("UTF-8");
+		  response.setContentType("text/html; charset=UTF-8");
+		  response.getWriter().write(result);
+		  
+		 
+		
+	}
+	
 	
 	
 	

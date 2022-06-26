@@ -76,7 +76,13 @@
 		 	<strong>${member.m_nick}</strong>님 반갑습니다. 
 		 <div>
 			<button type="button" class="btn btn-outline-primary me-2" id="logOut_btn">로그아웃</button>
-    	    <button type="button" class="btn btn-primary" id="signUp_btn">회원정보</button>
+    	   
+    	   <c:if test="${member.m_no eq null }">
+				<label>카카오 로그인 회원입니다.</label>			
+    	   </c:if>
+    	   <c:if test="${member.m_no ne null }">
+	    	    <button type="button" class="btn btn-primary" id="signUp_btn">회원정보</button>
+    	   </c:if>
 		 </div>
 		 </div> 
 	</c:if>

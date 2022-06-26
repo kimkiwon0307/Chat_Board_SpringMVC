@@ -22,6 +22,6 @@ public class MemberVO {
 	// 관리자 구분 (관리자 : 0, 사용자 : 1)
 	private int m_admin;
 	
-	// 사용자 가입날짜
+	// 사용자 가입날짜 
 	private Date m_date;
 }

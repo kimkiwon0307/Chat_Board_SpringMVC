@@ -130,7 +130,7 @@ public class BoardController {
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		String a = jsonObject.toString();
 		return a;
