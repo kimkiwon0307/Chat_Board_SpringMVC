@@ -224,7 +224,7 @@ $(document).ready(function(){
 		        		  data : JSON.stringify(data),
 		        		  contentType : "application/json; charset=utf-8",
 		        		  success : 
-		        			  self.location = "/fboard/list"
+		        			  self.location = "/"
 		        	  });
 		        	  
 		          },

@@ -80,9 +80,9 @@
     	   <c:if test="${member.m_no eq null }">
 				<label>카카오 로그인 회원입니다.</label>			
     	   </c:if>
-    	   <c:if test="${member.m_no ne null }">
+    	<%--    <c:if test="${member.m_no ne null }">
 	    	    <button type="button" class="btn btn-primary" id="signUp_btn">회원정보</button>
-    	   </c:if>
+    	   </c:if> --%>
 		 </div>
 		 </div> 
 	</c:if>

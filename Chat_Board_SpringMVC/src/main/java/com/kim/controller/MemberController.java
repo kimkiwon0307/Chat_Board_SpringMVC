@@ -82,7 +82,7 @@ public class MemberController {
 			CookieManager.deleteCookie(response, "loginId");
 		}
 		
-		return "redirect:/fboard/list";
+		return "redirect:/";
 		
 	}
 	
